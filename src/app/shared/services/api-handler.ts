@@ -11,28 +11,28 @@ import { responseMessages } from '../constants/response-message'
 export class ApiHandlerService implements IApiBaseActions {
     constructor(public readonly httpClient: HttpClient) {}
 
-    Get(url: string, params?: ParamsType) {
-        return this.httpClient.get<IApiBaseResponse>(url, { params: this.createParams(params) }).pipe(tap(x => this.HandleResponse(x)))
+    Get<T>(url: string, params?: ParamsType) {
+        return this.httpClient.get<T>(url, { params: this.createParams(params) }).pipe(tap(x => this.HandleResponse(x)));
     }
 
-    GetAll(url: string, params?: ParamsType) {
-        return this.httpClient.get<IApiBaseResponse>(url, { params: this.createParams(params) }).pipe(tap(x => this.HandleResponse(x)))
+    GetAll<T>(url: string, params?: ParamsType) {
+        return this.httpClient.get<T>(url, { params: this.createParams(params) }).pipe(tap(x => this.HandleResponse(x)));
     }
 
-    Post(url: string, data: any, params?: ParamsType) {
+    Post<T>(url: string, data: any, params?: ParamsType) {
         return this.httpClient
-            .post<IApiBaseResponse>(url, data, { params: this.createParams(params) })
-            .pipe(tap(x => this.HandleResponse(x)))
+            .post<T>(url, data, { params: this.createParams(params) })
+            .pipe(tap(x => this.HandleResponse(x)));
     }
 
-    Delete(url: string, data: any, params?: ParamsType) {
-        return this.httpClient.delete<IApiBaseResponse>(url, { params: this.createParams(params) }).pipe(tap(x => this.HandleResponse(x)))
+    Delete<T>(url: string, data: any, params?: ParamsType) {
+        return this.httpClient.delete<T>(url, { params: this.createParams(params) }).pipe(tap(x => this.HandleResponse(x)));
     }
 
-    Put(url: string, data: any, params?: ParamsType) {
+    Put<T>(url: string, data: any, params?: ParamsType) {
         return this.httpClient
-            .put<IApiBaseResponse>(url, data, { params: this.createParams(params) })
-            .pipe(tap(x => this.HandleResponse(x)))
+            .put<T>(url, data, { params: this.createParams(params) })
+            .pipe(tap(x => this.HandleResponse(x)));
     }
 
     HandleResponse(response: any) {

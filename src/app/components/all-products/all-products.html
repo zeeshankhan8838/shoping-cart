@@ -1,6 +1,6 @@
 <div class="container">
     <div class="d-flex justify-content-between selection-tab align-items-end">
-        <div> <span class="product-count"> Total Products: 10</span> </div>
+        <div> <span class="product-count"> Total Products: {{productList.length}}</span> </div>
         <div>
             <p-selectbutton [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
                 <ng-template #item let-item>
@@ -9,9 +9,9 @@
             </p-selectbutton>
         </div>
     </div>
-    @if (isGridView()) {
-<app-product-grid-view></app-product-grid-view>
-} @else {
-<app-prouct-list-view></app-prouct-list-view>
-}
+    @if (isGridView() && productList.length > 0) {
+    <app-product-grid-view [allProducts]="productList"></app-product-grid-view>
+    } @else {
+    <app-prouct-list-view [allProducts]="productList"></app-prouct-list-view>
+    }
 </div>

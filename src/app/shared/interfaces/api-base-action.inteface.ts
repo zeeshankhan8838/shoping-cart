@@ -15,8 +15,5 @@ export interface IApiBaseActions {
 }
 
 export interface IApiBaseResponse {
-  message: string;
-  statusCode: number
-  isSuccessful: boolean
-  result: any;
+ response: any;
 }

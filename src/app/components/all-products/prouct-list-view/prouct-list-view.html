@@ -1,80 +1,47 @@
     
         <div class="product-list">
             <!-- Product 1: GM2100 -->
+             @for (item of allProducts(); track $index) {
             <div class="product-item">
                 <div class="product-content">
                     <div class="product-image">
-                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiBmaWxsPSIjZjhmOWZhIiByeD0iOCIvPgo8Y2lyY2xlIGN4PSI2MCIgY3k9IjYwIiByPSIzNSIgZmlsbD0iIzMzMzMzMyIvPgo8Y2lyY2xlIGN4PSI2MCIgY3k9IjYwIiByPSIyOCIgZmlsbD0iIzIyMjIyMiIvPgo8cmVjdCB4PSI1NyIgeT0iMzUiIHdpZHRoPSI2IiBoZWlnaHQ9IjE1IiBmaWxsPSIjZmZmZmZmIi8+CjxyZWN0IHg9IjU3IiB5PSI0NSIgd2lkdGg9IjYiIGhlaWdodD0iMTAiIGZpbGw9IiNmZmZmZmYiLz4KPHN2ZyB4PSI0NSIgeT0iMTA1IiB3aWR0aD0iMzAiIGhlaWdodD0iOCIgZmlsbD0iIzMzMzMzMyIgcng9IjQiLz4KPHN2ZyB4PSI0NSIgeT0iNyIgd2lkdGg9IjMwIiBoZWlnaHQ9IjgiIGZpbGw9IiMzMzMzMzMiIHJ4PSI0Ii8+Cjx0ZXh0IHg9IjYwIiB5PSI5NSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjhweCIgZmlsbD0iIzMzMzMzMyIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Ry1TSE9DSzwvdGV4dD4KPC9zdmc+" alt="G-Shock GM2100">
+                        <img [src]="item.thumbnail" alt="Product image">
                     </div>
                     
                     <div class="product-info">
                         <div class="product-badges">
-                            <span class="badge new">NEW</span>
-                            <span class="badge stock">Ready Stock</span>
-                            <span class="badge overseas">Overseas</span>
-                            <span class="badge warranty">2 Years</span>
+                            @if(isLowStock(item.availabilityStatus)) {
+                                <span class="badge new">Low Stock</span>
+                            }
+                            @if(isBeautyCategory(item.category)) {
+                                <span class="badge stock">Beauty</span>
+                            }
+                            <span class="badge overseas">{{item.sku}}</span>
+                            <span class="badge warranty"> Weight {{item.weight}}</span>
                         </div>
                         
-                        <h3 class="product-title">G-Shock GM2100 Men Watch Digital Sport Watch</h3>
-                        <p class="product-subtitle">LED Display Water Resistant Shockproof and Waterproof World Time LED Auto Light Sports Square Wrist Watches</p>
+                        <h3 class="product-title">{{item.title}}</h3>
+                        <p class="product-subtitle">{{item.description}}</p>
                         
                         <ul class="product-features">
-                            <li>Imported</li>
-                            <li>Shock Resistant, Magnetic Resistant, Water Resistant</li>
-                            <li>Auto LED Light with Afterglow, World Time, 4 Daily Alarms and 1 Snooze Alarm</li>
-                            <li>Hourly Time Signal, 1/1000 Second Stopwatch</li>
-                            <li>Countdown Timer, Full Auto-Calendar (pre-programmed until the year 2099)</li>
+                            <li>{{item.returnPolicy}}</li>
+                            <li>{{item.warrantyInformation}}</li>
+                            <li>{{item.shippingInformation}}</li>
+                            <li>Max discount offer {{item.discountPercentage}}%</li>
+                            <li>Product dimension Width={{item.dimensions.width}}, Height={{item.dimensions.height}}, Depth={{item.dimensions.depth}}</li>
                         </ul>
                     </div>
                     
                     <div class="product-meta">
-                        <div class="product-price">Rs. 4,075</div>
-                        <div class="product-sales">5 sold</div>
+                        <div class="product-price">{{item.price |currency:'USD'}}</div>
+                        <div class="product-sales">Stock {{item.stock}}</div>
                         <div class="product-rating">
                             <span class="stars">★★★★☆</span>
-                            <span class="rating-count">(1.1)</span>
+                            <span class="rating-count">{{item.rating}}</span>
                         </div>
                         <button class="btn-primary">View Details</button>
                     </div>
                 </div>
             </div>
-
-            <!-- Product 2: GA110 -->
-            <div class="product-item">
-                <div class="product-content">
-                    <div class="product-image">
-                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiBmaWxsPSIjZjhmOWZhIiByeD0iOCIvPgo8Y2lyY2xlIGN4PSI2MCIgY3k9IjYwIiByPSIzOCIgZmlsbD0iIzAwMDAwMCIvPgo8Y2lyY2xlIGN4PSI2MCIgY3k9IjYwIiByPSIzMiIgZmlsbD0iIzExMTExMSIvPgo8Y2lyY2xlIGN4PSI2MCIgY3k9IjYwIiByPSIyNSIgZmlsbD0iIzAwMDAwMCIvPgo8Y2lyY2xlIGN4PSI2MCIgY3k9IjYwIiByPSI0IiBmaWxsPSIjZmZmZmZmIi8+CjxyZWN0IHg9IjU4IiB5PSIzNSIgd2lkdGg9IjQiIGhlaWdodD0iMjAiIGZpbGw9IiNmZmZmZmYiLz4KPHN2ZyB4PSI0MCIgeT0iMTA4IiB3aWR0aD0iNDAiIGhlaWdodD0iMTAiIGZpbGw9IiMwMDAwMDAiIHJ4PSI1Ii8+CjxzdmcgeD0iNDAiIHk9IjIiIHdpZHRoPSI0MCIgaGVpZ2h0PSIxMCIgZmlsbD0iIzAwMDAwMCIgcng9IjUiLz4KPHN2ZyB4PSIyMCIgeT0iNTUiIHdpZHRoPSIxNSIgaGVpZ2h0PSIxMCIgZmlsbD0iIzAwMDAwMCIgcng9IjMiLz4KPHN2ZyB4PSI4NSIgeT0iNTUiIHdpZHRoPSIxNSIgaGVpZ2h0PSIxMCIgZmlsbD0iIzAwMDAwMCIgcng9IjMiLz4KPHR2ZCB4PSI2MCIgeT0iMTAwIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iOHB4IiBmaWxsPSIjMDAwMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5HLVNIT0NLPC90ZXh0Pgo8L3N2Zz4=" alt="G-Shock GA110">
-                    </div>
-                    
-                    <div class="product-info">
-                        <div class="product-badges">
-                            <span class="badge new">NEW</span>
-                            <span class="badge stock">Ready Stock</span>
-                            <span class="badge overseas">Overseas</span>
-                            <span class="badge warranty">2 Years</span>
-                        </div>
-                        
-                        <h3 class="product-title">G-Shock GA110 Men and Women Watch Digital Sport Watch</h3>
-                        <p class="product-subtitle">LED Display Water Resistant Shockproof and Waterproof World Time LED Auto Light Sports Square Wrist Watches</p>
-                        
-                        <ul class="product-features">
-                            <li>Imported</li>
-                            <li>Shock Resistant, Magnetic Resistant, Water Resistant</li>
-                            <li>Auto LED Light with Afterglow, World Time, 4 Daily Alarms and 1 Snooze Alarm</li>
-                            <li>Hourly Time Signal, 1/1000 Second Stopwatch</li>
-                            <li>Countdown Timer, Full Auto-Calendar (pre-programmed until the year 2099)</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="product-meta">
-                        <div class="product-price">Rs. 3,519</div>
-                        <div class="product-sales">5 sold</div>
-                        <div class="product-rating">
-                            <span class="stars">★★★★☆</span>
-                            <span class="rating-count">(2)</span>
-                        </div>
-                        <button class="btn-primary">View Details</button>
-                    </div>
-                </div>
-            </div>
+        }
         </div>
