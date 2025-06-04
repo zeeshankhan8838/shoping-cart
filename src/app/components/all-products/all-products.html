@@ -1,6 +1,6 @@
 <div class="container">
     <div class="d-flex justify-content-between selection-tab align-items-end">
-        <div> <span class="product-count"> Total Products: {{productList.length}}</span> </div>
+        <div> <span class="product-count"> Total Products: {{totalRecords}}</span> </div>
         <div>
             <p-selectbutton [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
                 <ng-template #item let-item>
@@ -14,4 +14,9 @@
     } @else {
     <app-prouct-list-view [allProducts]="productList"></app-prouct-list-view>
     }
+
+    <p-paginator (onPageChange)="onPageChange($event)" [first]="skip" [rows]="limit" [totalRecords]="totalRecords"
+        [rowsPerPageOptions]="paginationPageOption" />
+
+
 </div>

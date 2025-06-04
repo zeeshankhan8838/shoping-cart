@@ -38,11 +38,11 @@ export class Product {
   //   });
   // }
 
-  async getallProducts() {
+  async getallProducts(skip:number,limit:number) {
     try {
-      const apiResponse = await this.crudServuce.get(apiEndpoints.allProducts) as IProductResponse;
+      const apiResponse = await this.crudServuce.get(apiEndpoints.allProducts(skip,limit)) as IProductResponse;
       if (apiResponse) {
-        return apiResponse.products;
+        return apiResponse;
       } else {
         throw new Error('Failed to fetch products');
       }
