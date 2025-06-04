@@ -1,0 +1,15 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+
+    .selection-tab {
+        margin-top: 40px;
+
+        .product-count {
+            color: #666;
+            font-size: 14px;
+            font-weight: 500;
+            padding-left: 2px;
+        }
+    }
+}

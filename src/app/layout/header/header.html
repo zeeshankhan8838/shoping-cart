@@ -1,0 +1,90 @@
+<div class="header-top">
+    <div class="container-fluid d-none d-md-block">
+        <div class="row header-top-row">
+            <div class="col-12 d-flex  justify-content-end align-items-center flex-wrap">
+                <a href="#">SAVE MORE ON APP</a>
+                <a href="#">SELL ON DARAZ</a>
+                <a href="#">HELP & SUPPORT</a>
+                <a href="#">LOGIN</a>
+                <a href="#">SIGN UP</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-main py-2">
+        <div class="container-fluid">
+            <div class="row header-content ">
+                <!-- Hamburger for mobile screen -->
+                <div class="d-md-none text-start d-flex justify-content-between">
+                    <div>
+                        <button class="btn" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#categoriesDrawerMobile" aria-controls="categoriesDrawerMobile">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                    <div>
+                        <div class="d-flex justify-content-end">
+                            <img src="/public/app-logo.png" alt="" class="app-logo img-fluid" style="max-height:40px;">
+                        </div>
+                    </div>
+                    <div class="sm-cart-section">
+                        <a href="#" class="sm-cart-icon">
+                            <i class="fas fa-shopping-cart fa-lg"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Mobile Categories Drawer -->
+                <div class="offcanvas offcanvas-start d-md-none" tabindex="-1" id="categoriesDrawerMobile"
+                    aria-labelledby="categoriesDrawerMobileLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="categoriesDrawerMobileLabel">Categories</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <div class="d-flex flex-column gap-2">
+                            <a href="#">bags for girls</a>
+                            <a href="#">smart watch</a>
+                            <a href="#">water bottle</a>
+                            <a href="#">watch for boys</a>
+                            <a href="#">laptop</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Search for mobile section -->
+                <div class="d-flex justify-content-center d-md-none w-100 mt-2">
+                    <div class="position-relative">
+                        <input type="text" class="form-control search-input" placeholder="Search in Daraz">
+                        <i class="fas fa-search search-icon position-absolute"></i>
+                    </div>
+                </div>
+
+                <!-- Web content -->
+                <div class="col-4 mt-1 col-md-2 d-none d-md-flex justify-content-end">
+                    <img src="/public/app-logo.png" alt="" class="app-logo img-fluid" style="max-height:40px;">
+                </div>
+                <div class="col-6 col-md-6 my-2 my-md-0 d-none d-md-block">
+                    <div class="search-section">
+                        <input type="text" class="form-control search-input" placeholder="Search in Daraz">
+                        <i class="fas fa-search search-icon"></i>
+                    </div>
+                    <!-- Desktop Categories Bar -->
+                    <div class="header-categories-bar d-none d-md-block" id="categoriesBarDesktop">
+                        <div class="d-flex flex-wrap gap-2">
+                            <a href="#">bags for girls</a>
+                            <a href="#">smart watch</a>
+                            <a href="#">water bottle</a>
+                            <a href="#">watch for boys</a>
+                            <a href="#">laptop</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2 mt-1 col-md-2 cart-section d-none d-md-flex text-end">
+                    <a href="#" class="cart-icon">
+                        <i class="fas fa-shopping-cart fa-lg"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

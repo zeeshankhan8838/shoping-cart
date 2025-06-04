@@ -1,0 +1,97 @@
+.header {
+
+    &-top {
+        background-color: #f85606;
+        color: white;
+        line-height: 2rem;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+
+        a {
+            color: white;
+            text-decoration: none;
+            margin-right: 15px;
+            font-size: 12px;
+
+            &:hover {
+                color: #ffccaa;
+
+            }
+        }
+
+        &-top-row {
+            padding: 0px 50px 0px 50px;
+        }
+
+
+    }
+
+    &-main {
+        .header-main-row {
+            margin: 0px 100px 0px 100px;
+        }
+
+        .app-logo {
+            height: 40px;
+            width: 127px;
+        }
+
+        .search-section {
+            position: relative;
+
+            .search-input {
+                height: 45px;
+                font-size: 14px;
+                line-height: 1;
+                letter-spacing: 0;
+                color: #212121;
+                border: none;
+                outline: none;
+                background: #eff0f5;
+                box-shadow: none;
+                border-radius: 2px;
+                width: 100%;
+                padding: 13px 19px;
+            }
+
+            .search-icon {
+                position: absolute;
+                color: #888;
+                pointer-events: none;
+                transform: translateY(-50%);
+                right: 10px;
+                top: 50%;
+            }
+        }
+
+        .cart-section {
+            position: relative;
+
+            .cart-icon {
+                font-size: 26px;
+            }
+        }
+    }
+
+
+}
+.sm-cart-section{
+    margin-top:7px;
+    i{
+        font-size: 26px;
+    }
+}
+.offcanvas-body{
+    a{
+        color: black;
+    }
+}
+
+.search-icon{
+    right: 10px; top: 50%; transform: translateY(-50%);
+    color: black;
+}
+
