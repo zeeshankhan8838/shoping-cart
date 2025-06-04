@@ -21,7 +21,7 @@ jobs:
       with:
         node-version: 22.x
     - name: Install dependency
-      run:  npm install
+      run:  npm install --f
     
     - name: Build
       run: npm run build
