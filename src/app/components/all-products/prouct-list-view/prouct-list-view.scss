@@ -113,14 +113,14 @@
                   color: #7f8c8d;
                   margin-bottom: 12px;
                   text-align: left;
+                  max-width:690px;
+                  
               }
 
               .product-features {
                   list-style: none;
-                  ul{
-                    padding-left: 0 !important;
-                  }
-
+                  padding-left: 0;
+                 
                   li {
                       font-size: 0.85rem;
                       color: #555;
