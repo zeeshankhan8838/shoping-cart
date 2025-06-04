@@ -112,10 +112,14 @@
                   font-size: 0.9rem;
                   color: #7f8c8d;
                   margin-bottom: 12px;
+                  text-align: left;
               }
 
               .product-features {
                   list-style: none;
+                  ul{
+                    padding-left: 0 !important;
+                  }
 
                   li {
                       font-size: 0.85rem;
@@ -123,6 +127,7 @@
                       margin-bottom: 4px;
                       padding-left: 16px;
                       position: relative;
+                      text-align: left;
 
                       &::before {
                           content: "•";
