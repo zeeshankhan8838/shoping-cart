@@ -16,9 +16,8 @@
     }
 
     <div class="mb-4">
- <p-paginator (onPageChange)="onPageChange($event)" [first]="skip" [rows]="limit" [totalRecords]="totalRecords"
-        [rowsPerPageOptions]="paginationPageOption" />
+        <p-paginator (onPageChange)="onPageChange($event)" [first]="skip" [rows]="limit" appendTo="body" [totalRecords]="totalRecords"
+            [rowsPerPageOptions]="paginationPageOption" />
     </div>
-   
-</div>
 
+</div>

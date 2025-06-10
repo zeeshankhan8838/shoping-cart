@@ -1,0 +1,96 @@
+.container {
+    margin: 30px auto;
+
+    i {
+        color: gray;
+    }
+
+    .cart {
+        &-header-bar {
+            background-color: white;
+            padding: 12px;
+
+            .cart-title {
+                font-size: 12px;
+            }
+
+            .trash-icon {
+                color: gray;
+                font-size: 12px;
+                padding-right: 5px;
+            }
+        }
+
+        &-items {
+            margin-top: 10px;
+            background-color: white;
+            padding: 10px;
+
+            img {
+                width: 80px;
+                height: 80px;
+            }
+            .cart-sub-text{
+                font-size: 12px;
+            }
+            .original-price{
+                text-decoration: line-through;
+                color: gray;
+            }
+        }
+
+        &-address-summary {
+            background-color: white;
+            padding: 20px;
+
+            input {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                font-size: 16px;
+                margin-bottom: 10px;
+            }
+
+            .apply-btn {
+                background-color: #2abbe8;
+                color: white;
+                padding: 11px 20px;
+                border: none;
+                cursor: pointer;
+                font-size: 16px;
+
+                &:hover {
+                    background-color: #1a8bbf;
+                }
+            }
+
+            .proceed-btn {
+                background-color: #f57224;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                cursor: pointer;
+                width: 100%;
+                font-size: 16px;
+
+                &:hover {
+                    background-color: #d45a1f;
+                }
+            }
+
+        }
+    }
+}
+.text-heading{
+    color: #f57224;
+}
+
+:host ::ng-deep .p-inputnumber input {
+    width: 100px !important;
+    text-align: center;
+}
+
+.cursor-pointer{
+    cursor: pointer;
+}

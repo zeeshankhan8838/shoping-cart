@@ -61,26 +61,26 @@
                         <span class="text-black-50">Quantity:</span>
                     </div>
                     <div class="d-flex gap-2">
-                        <p-inputnumber [(ngModel)]="quantity" [showButtons]="true" buttonLayout="horizontal"
-                            inputId="horizontal" spinnerMode="horizontal" [step]="1" [min]="1" [max]="p.stock"
+                        <p-inputnumber [(ngModel)]="p.quantity" [showButtons]="true" buttonLayout="horizontal"
+                            inputId="horizontal" spinnerMode="horizontal" [step]="1" [min]="1" [max]="p.stock" placeholder="1" (onInput)="quantityChange()"
                             [disabled]="!p.stock">
                             <ng-template #incrementbuttonicon>
                                 <span class="fas fa-plus"></span>
                             </ng-template>
                             <ng-template #decrementbuttonicon>
-                                <span class="fas fa-minus"></span>
+                                <span class="fas fa-minus" ></span>
                             </ng-template>
                         </p-inputnumber>
                     </div>
                     <div>
                         <span class="text-black-50">
-                            Only {{p.stock}} left in stock
+                            Only {{p.remainingStock}} left in stock
                         </span>
                     </div>
                 </div>
                 <div class="d-flex mt-4 gap-3 action-btn-section">
                     <button type="button" class="buy-btn w-50">Buy Now</button>
-                    <button type="button" class="cart-btn w-50">Add to Cart</button>
+                    <button type="button" class="cart-btn w-50" (click)="addToCart()">Add to Cart</button>
                 </div>
 
 
@@ -136,39 +136,23 @@
                 </div>
 
                 <div class="product-info-section">
-                    <div class="d-flex justify-content-between align-items-center flex-wrap">
+                    <div class="d-flex justify-content-between align-items-center">
                         <div class="text-black-50">Sold by</div>
-                        <div> <a href="#">{{p.brand}}</a></div>
+                        <div><a href="#">{{p.brand}}</a></div>
                     </div>
 
-                    <div class="d-flex mt-4 gap-4 flex-wrap">
-                        <div class="d-flex flex-column gap-4">
-                            <div class="text-black-50 info-title"> 
-                                Positive Seller Ratings
-                            </div>
-                            <div class="fs-4">
-                                {{p.rating}}%
-                            </div>
-
+                    <div class="row mt-4">
+                        <div class="col-12 col-md-4 mb-3">
+                            <div class="text-black-50 info-title mb-3">Positive Seller Ratings</div>
+                            <div class="fs-4 title-value">{{p.rating}}%</div>
                         </div>
-                          <div class="d-flex flex-column gap-4">
-                            <div class="text-black-50 info-title">
-                                Chat Response Rate
-                            </div>
-                            <div class="fs-4">
-                                100%
-                            </div>
+                        <div class="col-12 col-md-4 mb-3">
+                            <div class="text-black-50 info-title mb-3">Chat Response Rate</div>
+                            <div class="fs-4 title-value">100%</div>
                         </div>
-
-                        <div class="d-flex flex-column gap-4">
-                            <div class="text-black-50 info-title">
-                                Minimum Order Quantity
-                            </div>
-
-                            <div class="fs-4">
-                                {{p.minimumOrderQuantity}}
-
-                            </div>
+                        <div class="col-12 col-md-4 mb-3">
+                            <div class="text-black-50 info-title mb-3">Minimum Order Quantity</div>
+                            <div class="fs-4 title-value">{{p.minimumOrderQuantity}}</div>
                         </div>
                     </div>
                 </div>
