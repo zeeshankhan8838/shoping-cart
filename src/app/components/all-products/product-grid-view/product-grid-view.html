@@ -1,6 +1,6 @@
 <div class="product-grid">
     @for (item of allProducts(); track item.id) {
-        <div class="product-card">
+        <div class="product-card" (click)="productItemId.emit(item.id)">
             <div class="product-image">
                 <div class="promotional-badge">Daraz Mall</div>
                 <div class="h-100">

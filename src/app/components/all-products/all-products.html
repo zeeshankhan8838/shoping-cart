@@ -10,13 +10,15 @@
         </div>
     </div>
     @if (isGridView() && productList.length > 0) {
-    <app-product-grid-view [allProducts]="productList"></app-product-grid-view>
+    <app-product-grid-view [allProducts]="productList" (productItemId)="navigateById($event)"></app-product-grid-view>
     } @else {
-    <app-prouct-list-view [allProducts]="productList"></app-prouct-list-view>
+    <app-prouct-list-view [allProducts]="productList" (productItemId)="navigateById($event)"></app-prouct-list-view>
     }
 
-    <p-paginator (onPageChange)="onPageChange($event)" [first]="skip" [rows]="limit" [totalRecords]="totalRecords"
+    <div class="mb-4">
+ <p-paginator (onPageChange)="onPageChange($event)" [first]="skip" [rows]="limit" [totalRecords]="totalRecords"
         [rowsPerPageOptions]="paginationPageOption" />
-
-
+    </div>
+   
 </div>
+

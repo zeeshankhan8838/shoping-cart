@@ -2,13 +2,15 @@ import { inject, Injectable, Resource, resource } from '@angular/core';
 import { CrudService } from './crud';
 import { apiEndpoints } from '../constants/endpoints';
 import { IProductResponse } from '../interfaces/product.interface';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Product {
 
-  crudServuce=inject(CrudService)
+  crudServuce = inject(CrudService)
+  searchText$:Subject<string>=new Subject()
   // productList!: Resource<any>;
   constructor() { }
 
@@ -25,7 +27,7 @@ export class Product {
   //     },
   //   });
   // }
-  
+
   // getProductById(id: string) {
   //   return resource({
   //     loader: async () => {
@@ -38,9 +40,9 @@ export class Product {
   //   });
   // }
 
-  async getallProducts(skip:number,limit:number) {
+  async getallProducts(skip: number, limit: number) {
     try {
-      const apiResponse = await this.crudServuce.get(apiEndpoints.allProducts(skip,limit)) as IProductResponse;
+      const apiResponse = await this.crudServuce.get(apiEndpoints.allProducts(skip, limit)) as IProductResponse;
       if (apiResponse) {
         return apiResponse;
       } else {
@@ -52,8 +54,31 @@ export class Product {
     }
   }
 
-  async getProductById(id: string) {
-    return await this.crudServuce.get(apiEndpoints.getProductById(id));
+  async getProductById(id: number) {
+    try {
+      const apiResponse = await this.crudServuce.get(apiEndpoints.getProductById(id));
+      if (apiResponse) {
+        return apiResponse;
+      } else {
+        throw new Error('Product not found');
+      }
+    } catch (error) {
+      console.error('Error fetching product by ID:', error);
+      throw error;
+    }
+  }
+
+  async getSearchResults(query: string) {
+    try { 
+      const apiResponse = await this.crudServuce.get(apiEndpoints.searchProducts(query)) as IProductResponse;
+      if (apiResponse) {
+        return apiResponse;
+      } else {
+        throw new Error('Failed to fetch search results');
+      }
+    } catch (error) {
+      throw error
+    }
   }
 
   async searchProducts(query: string) {

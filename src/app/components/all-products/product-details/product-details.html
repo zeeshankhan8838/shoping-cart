@@ -1,0 +1,179 @@
+@if (product; as p) {
+<div class="container">
+    <div class="product-detail-card">
+        <div class="row">
+            <div class="col-md-3">
+
+                <p-galleria [value]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions"
+                    [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+                    <ng-template pTemplate="item" let-item>
+                        <img [src]="item" style="width: 100%; display: block" />
+                    </ng-template>
+                    <ng-template pTemplate="thumbnail" let-item>
+                        @if (images.length>1) {
+                        <div class="grid gap-4 justify-center" >
+                            <img [src]="item" style="width: 100%; display: block" />
+                        </div>
+                     }
+                    </ng-template>
+                </p-galleria>
+            </div>
+            <div class="col-md-6">
+                <div>
+                    <h3>{{p.title}}</h3>
+                    <p class="sub-title">{{p.description}}</p>
+                </div>
+
+                <div class="d-flex share-option justify-content-end gap-3">
+                    <div>
+                        <i class="fas fa-share"></i>
+                    </div>
+                    <div>
+                        <i class="fas fa-heart"></i>
+                    </div>
+                </div>
+
+                <div class="rating-section d-flex gap-2">
+                    <p-rating [(ngModel)]="p.rating" [stars]="5" [readonly]="true"
+                        [style]="{ 'font-size': '1.5rem' }"></p-rating>
+                    <span class="rating-count">({{p.rating}})</span>
+                </div>
+
+                <div class="product-info d-flex justify-content-between mt-4">
+                    <div>
+                        <span class="text-black-50"> Brand:</span> <a href="#">{{p.brand}}</a> <span
+                            class="text-black-50 m-2">|</span> <a href="#">More Item from {{p.brand}}</a>
+                    </div>
+
+                    <div>{{p.shippingInformation}}</div>
+                </div>
+
+                <div class="price-section">
+                    <hr>
+                    <h3>
+                        {{p.price | currency:'USD':'symbol':'1.2-2'}}
+                    </h3>
+                    <hr>
+                </div>
+
+                <div class="d-flex quanitity-section align-items-baseline gap-3 mt-4">
+                    <div>
+                        <span class="text-black-50">Quantity:</span>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <p-inputnumber [(ngModel)]="quantity" [showButtons]="true" buttonLayout="horizontal"
+                            inputId="horizontal" spinnerMode="horizontal" [step]="1" [min]="1" [max]="p.stock"
+                            [disabled]="!p.stock">
+                            <ng-template #incrementbuttonicon>
+                                <span class="fas fa-plus"></span>
+                            </ng-template>
+                            <ng-template #decrementbuttonicon>
+                                <span class="fas fa-minus"></span>
+                            </ng-template>
+                        </p-inputnumber>
+                    </div>
+                    <div>
+                        <span class="text-black-50">
+                            Only {{p.stock}} left in stock
+                        </span>
+                    </div>
+                </div>
+                <div class="d-flex mt-4 gap-3 action-btn-section">
+                    <button type="button" class="buy-btn w-50">Buy Now</button>
+                    <button type="button" class="cart-btn w-50">Add to Cart</button>
+                </div>
+
+
+            </div>
+            <div class="col-md-3">
+                <div class="delievery-section">
+                    <div class="delivery-option">
+                        <h6 class="text-black-50">Delivery Options</h6>
+                        <div>
+                            <span class="pe-3">
+                                <i class="fas fa-location-arrow"></i>
+                            </span>
+                            <span class="text-black-50">Deliver to 8 Christopher St</span>
+                            <hr class="text-black-50">
+                        </div>
+
+                    </div>
+
+                    <div class="return-policy d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-black-50"> Return & Warranty </h6>
+                        </div>
+                        <div>
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-start align-items-start mt-3 gap-3">
+                        <div>
+                            <i class="fas fa-rotate-left"></i>
+                        </div>
+                        <div>
+                            <h6 class="text-black-50">{{p.returnPolicy}}
+                            </h6>
+                        </div>
+
+                    </div>
+                    <div class="d-flex justify-content-start align-items-start mt-3 gap-3">
+                        <div>
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div>
+                            <h6 class="text-black-50">{{p.warrantyInformation}}</h6>
+
+                        </div>
+                    </div>
+                    <!-- dummy QR code image -->
+                    <div class="d-flex justify-content-center align-items-center mt-4">
+                        <img src="/public/qr-code.png" alt="QR Code" class="img-fluid">
+                    </div>
+
+                    <div></div>
+                </div>
+
+                <div class="product-info-section">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="text-black-50">Sold by</div>
+                        <div> <a href="#">{{p.brand}}</a></div>
+                    </div>
+
+                    <div class="d-flex mt-4 gap-4">
+                        <div class="d-flex flex-column gap-4">
+                            <div class="text-black-50 info-title"> 
+                                Positive Seller Ratings
+                            </div>
+                            <div class="fs-4">
+                                {{p.rating}}%
+                            </div>
+
+                        </div>
+                          <div class="d-flex flex-column gap-4">
+                            <div class="text-black-50 info-title">
+                                Chat Response Rate
+                            </div>
+                            <div class="fs-4">
+                                100%
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-column gap-4">
+                            <div class="text-black-50 info-title">
+                                Minimum Order Quantity
+                            </div>
+
+                            <div class="fs-4">
+                                {{p.minimumOrderQuantity}}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}

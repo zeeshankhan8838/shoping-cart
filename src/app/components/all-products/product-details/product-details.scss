@@ -1,0 +1,76 @@
+@mixin action-btn($bg-color) {
+    display: block;
+    width: 100%;
+    height: 50px;
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    background-color: $bg-color;
+
+    &:hover {
+        background-color: $bg-color;
+        opacity: 0.8;
+    }
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+
+    .product {
+
+        &-detail-card {
+            margin-top: 30px;
+            padding: 30px;
+            background-color: white;
+
+            .sub-title {
+                font-size: 14px;
+                color: #666;
+                text-align: left;
+            }
+
+            .price-section {
+                margin-top: 10px;
+                color: #666;
+
+                h3 {
+                    font-size: 30px;
+                    color: #f57224;
+                    font-weight: 600;
+                }
+            }
+
+            .action-btn-section {
+                .buy-btn {
+                    @include action-btn(#2abbe8);
+                }
+                .cart-btn {
+                    @include action-btn(#f57224);
+                }
+            }
+
+
+            .delievery-section{
+                background-color: #fafafa;
+                padding: 15px;
+            }
+            .product-info-section{
+                background-color: #fafafa;
+                margin: 20px 0px;
+                padding: 15px;
+                .info-title{
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}
+
+:host ::ng-deep .p-inputnumber input {
+    width: 100px !important;
+    text-align: center;
+}

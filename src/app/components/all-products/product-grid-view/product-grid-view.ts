@@ -1,4 +1,4 @@
-import { Component, Input, input } from '@angular/core';
+import { Component, Input, input, output } from '@angular/core';
 import { IProduct } from '../../../shared/interfaces/product.interface';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 
@@ -10,4 +10,5 @@ import { CommonModule, CurrencyPipe } from '@angular/common';
 })
 export class ProductGridView {
 allProducts=input<IProduct[]>()
+productItemId=output<number>();
 }

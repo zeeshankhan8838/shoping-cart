@@ -2,7 +2,7 @@
         <div class="product-list">
             <!-- Product 1: GM2100 -->
              @for (item of allProducts(); track $index) {
-            <div class="product-item">
+            <div class="product-item" >
                 <div class="product-content">
                     <div class="product-image">
                         <img [src]="item.thumbnail" alt="Product image">
@@ -39,7 +39,7 @@
                             <span class="stars">★★★★☆</span>
                             <span class="rating-count">{{item.rating}}</span>
                         </div>
-                        <button class="btn-primary">View Details</button>
+                        <button class="btn-primary" (click)="productItemId.emit(item.id)">View Details</button>
                     </div>
                 </div>
             </div>
