@@ -36,6 +36,18 @@
              }
          }
 
+           &-empty-placeholder {
+            background-color: white;
+            margin-top: 30px;
+            min-height: 470px; // or whatever height you prefer
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: gray;
+        }
+
          &-content-wrapper {
              background-color: white;
              padding: 12px;
@@ -168,6 +180,11 @@
                  &:hover {
                      background-color: #d45a1f;
                  }
+                   &:disabled {
+                    background-color: grey !important;
+                    cursor: not-allowed;
+                    opacity: 0.7;
+                }
              }
          }
      }
