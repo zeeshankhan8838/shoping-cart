@@ -57,7 +57,7 @@
                         <p-rating [ngModel]="item.rating" [readonly]="true" [stars]="5" [disabled]="true">
                         </p-rating>
                         <span class="rating-count">({{item.rating}})</span>
-                    </div> <span class="rating-count">({{item.rating}})</span>
+                    </div> 
                 </div>
                 <button class="btn-primary" (click)="productItemId.emit(item.id)"
                     [attr.aria-label]="'View details for ' + item.title">
