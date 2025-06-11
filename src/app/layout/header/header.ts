@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, effect, inject, model, OnDestroy, OnInit, signal, Signal } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Product } from '../../shared/services/resouce-api-product';
+import { Product } from '../../shared/services/product';
 import { RouterModule } from '@angular/router';
 import { CartService } from '../../shared/services/cart';
 import { Subject, Subscription, takeUntil } from 'rxjs';

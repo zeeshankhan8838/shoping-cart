@@ -20,8 +20,8 @@ export class Cart implements OnInit {
 
   // Component State
   private readonly cartSubscription = new Subscription();
-  private groupedCartItemsArray = this.cartService.getCartFilterList();
-  private groupIndex = 0;
+  groupedCartItemsArray = this.cartService.getCartFilterList();
+  $groupIndex = 0;
 
   // Computed Values
   readonly calculatedAmountSummary = this.cartService.calculatedAmount;
@@ -47,7 +47,7 @@ export class Cart implements OnInit {
    * Removes a specific item from cart
    */
   deleteSubItem(): void {
-    this.groupedCartItemsArray.splice(this.groupIndex, 1);
+    this.groupedCartItemsArray.splice(this.$groupIndex, 1);
     this.updateCartState('delete');
   }
 

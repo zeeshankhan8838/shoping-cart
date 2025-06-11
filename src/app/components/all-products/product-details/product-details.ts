@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, inject, model, OnInit, signal } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GalleriaModule } from 'primeng/galleria';
-import { Product } from '../../../shared/services/resouce-api-product';
+import { Product } from '../../../shared/services/product';
 import { IProduct, IProductResponse, ProductDetailResponse, ResponsiveOption } from '../../../shared/interfaces/product.interface';
 import { RatingModule } from 'primeng/rating';
 import { CurrencyPipe } from '@angular/common';

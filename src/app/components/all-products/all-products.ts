@@ -10,7 +10,7 @@ import { debounceTime, distinctUntilChanged, switchMap, takeUntil } from 'rxjs/o
 import { ERROR_MESSAGES, LAYOUT_TYPES } from '../../shared/constants/product.constant';
 import { ApiError } from '../../shared/interfaces/api-base-action.inteface';
 import { IProduct, IProductResponse } from '../../shared/interfaces/product.interface';
-import { Product } from '../../shared/services/resouce-api-product';
+import { Product } from '../../shared/services/product';
 import { ProductGridView } from "./product-grid-view/product-grid-view";
 import { ProductListView as ProductListView } from "./prouct-list-view/product-list-view";
 

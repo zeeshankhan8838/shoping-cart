@@ -4,7 +4,7 @@ import { CommonModule, CurrencyPipe } from '@angular/common';
 import { DEFAULT_PLACEHOLDER_IMAGE, PRODUCT_CONSTANTS } from '../../../shared/constants/product.constant';
 import { RatingModule } from 'primeng/rating';
 import { FormsModule } from '@angular/forms';
-import { Product } from '../../../shared/services/resouce-api-product';
+import { Product } from '../../../shared/services/product';
 
 @Component({
   selector: 'app-product-list-view',

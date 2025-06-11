@@ -1,7 +1,7 @@
 import { Component, inject, Input, input, output } from '@angular/core';
 import { IProduct } from '../../../shared/interfaces/product.interface';
 import { CommonModule, CurrencyPipe } from '@angular/common';
-import { Product } from '../../../shared/services/resouce-api-product';
+import { Product } from '../../../shared/services/product';
 
 @Component({
   selector: 'app-product-grid-view',
