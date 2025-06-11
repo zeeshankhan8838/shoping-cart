@@ -5,7 +5,8 @@
             <div class="col-md-3">
 
                 <p-galleria [value]="p.images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions"
-                    [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+                    [containerStyle]="{ 'max-width': '640px' }"
+                    [showThumbnails]="p.images.length > 1">
                     <ng-template pTemplate="item" let-item>
                         <img [src]="item" style="width: 100%; display: block" />
                     </ng-template>
@@ -129,7 +130,7 @@
                     </div>
                     <!-- dummy QR code image -->
                     <div class="d-flex justify-content-center align-items-center mt-4">
-                        <img src="/public/qr-code.png" alt="QR Code" class="img-fluid">
+                        <img src="/public/qrcode.png" alt="QR Code" class="img-fluid">
                     </div>
 
                     <div></div>
