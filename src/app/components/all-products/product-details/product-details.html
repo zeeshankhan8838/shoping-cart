@@ -4,17 +4,17 @@
         <div class="row">
             <div class="col-md-3">
 
-                <p-galleria [value]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions"
+                <p-galleria [value]="p.images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions"
                     [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
                     <ng-template pTemplate="item" let-item>
                         <img [src]="item" style="width: 100%; display: block" />
                     </ng-template>
                     <ng-template pTemplate="thumbnail" let-item>
-                        @if (images.length>1) {
-                        <div class="grid gap-4 justify-center" >
+                        @if (p.images.length>1) {
+                        <div class="grid gap-4 justify-center">
                             <img [src]="item" style="width: 100%; display: block" />
                         </div>
-                     }
+                        }
                     </ng-template>
                 </p-galleria>
             </div>
@@ -61,16 +61,16 @@
                         <span class="text-black-50">Quantity:</span>
                     </div>
                     <div class="d-flex gap-2">
-                        <p-inputnumber [(ngModel)]="p.quantity" [showButtons]="true" buttonLayout="horizontal"
-                            inputId="horizontal" spinnerMode="horizontal" [step]="1" [min]="1" [max]="p.stock" placeholder="1" (onInput)="quantityChange()"
-                            [disabled]="!p.stock">
+                        <p-inputNumber [(ngModel)]="p.updatedQuantity" [showButtons]="true" buttonLayout="horizontal"
+                            inputId="horizontal" spinnerMode="horizontal" [step]="1" [min]="1" [max]="p.stock"
+                            placeholder="1" (onInput)="quantityChange()" [disabled]="!p.stock">
                             <ng-template #incrementbuttonicon>
                                 <span class="fas fa-plus"></span>
                             </ng-template>
                             <ng-template #decrementbuttonicon>
-                                <span class="fas fa-minus" ></span>
+                                <span class="fas fa-minus"></span>
                             </ng-template>
-                        </p-inputnumber>
+                        </p-inputNumber>
                     </div>
                     <div>
                         <span class="text-black-50">

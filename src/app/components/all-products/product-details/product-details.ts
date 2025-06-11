@@ -11,6 +11,7 @@ import { Cart } from '../../cart/cart';
 import { CartService } from '../../../shared/services/cart';
 import { MessageService } from 'primeng/api';
 import { ICartItem } from '../../../shared/interfaces/cart.interface';
+import { DEFAULT_PRODUCT_VALUE } from '../../../shared/constants/cart.constant';
 
 @Component({
   selector: 'app-product-details',
@@ -20,7 +21,6 @@ import { ICartItem } from '../../../shared/interfaces/cart.interface';
 })
 export class ProductDetails implements OnInit {
   position: 'left' | 'right' | 'top' | 'bottom' = 'bottom';
-  images: any[] = [];
   productService = inject(Product);
   cdr = inject(ChangeDetectorRef);
   activatedRoute = inject(ActivatedRoute)
@@ -55,11 +55,13 @@ export class ProductDetails implements OnInit {
 
       let apiResponse = await this.productService.getProductById(this.productId as number) as ICartItem
       if (apiResponse) {
-        this.product = apiResponse
-        this.product.quantity = 1
-        this.product.totalPrice = apiResponse.price
-        this.product.remainingStock=apiResponse.stock
-        this.images = this.product.images
+        this.product = {
+          ...DEFAULT_PRODUCT_VALUE,
+          ...apiResponse,
+          totalPrice: apiResponse.price,
+          remainingStock: apiResponse.stock,
+          images: apiResponse.images,
+        };
       }
     }
   }
@@ -70,11 +72,11 @@ export class ProductDetails implements OnInit {
   }
 
   quantityChange() {
-    if(Number(this.product?.stock)> Number(this.product?.quantity)){
-      this.product.remainingStock=Number(this.product?.stock) -Number(this.product?.quantity)
-    }else{
-      this.product.quantity=1
-      this.product.remainingStock=this.product.stock-1
+    if (Number(this.product?.stock) > Number(this.product?.quantity)) {
+      this.product.remainingStock = Number(this.product?.stock) - Number(this.product?.updatedQuantity)
+    } else {
+      this.product.updatedQuantity = 1
+      this.product.remainingStock = this.product.stock -1
     }
     this.cartService.calculatePrice(this.product as ICartItem)
   }

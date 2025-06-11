@@ -1,4 +1,4 @@
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -9,27 +9,37 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
-  imports: [InputNumberModule, FormsModule, ReactiveFormsModule, CurrencyPipe],
+  imports: [InputNumberModule, FormsModule, ReactiveFormsModule, CurrencyPipe, DatePipe],
   templateUrl: './checkout.html',
   styleUrl: './checkout.scss'
 })
 export class Checkout implements OnInit {
   cartService = inject(CartService)
-  messageService=inject(MessageService)
-  router=inject(Router)
+  messageService = inject(MessageService)
+  router = inject(Router)
   calculatedAmountSummary = this.cartService.calculatedAmount
   groupedCartItemsArray = signal([] as IGroupedCartItems[])
+  currentDate = new Date()
+  expectedDate = new Date();
+  $groupIndex: any;
 
 
   ngOnInit(): void {
+    this.expectedDate.setDate(this.currentDate.getDate() + 7);
     this.groupedCartItemsArray.set(this.cartService.getCartFilterList())
     this.cartService.getTotalAmountSummary(this.groupedCartItemsArray())
   }
 
 
-  pay(){
+  pay() {
     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Your Order has been placed' });
     this.router.navigate(['/'])
+  }
 
+  deleteItem() {
+    this.groupedCartItemsArray().splice(this.$groupIndex, 1)
+    this.cartService.updateGroupCartList(this.groupedCartItemsArray())
+    this.cartService.getTotalAmountSummary(this.groupedCartItemsArray())
+    this.cartService.cartAction$.next('delete')
   }
 }

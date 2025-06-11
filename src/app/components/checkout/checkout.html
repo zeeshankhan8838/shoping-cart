@@ -20,10 +20,10 @@
             </div>
 
 
-            @for (item of groupedCartItemsArray(); track $index) {
+            @for (item of groupedCartItemsArray(); track $groupIndex) {
             <div class="d-flex justify-content-between align-items-center checkout-info-container-bar mt-3">
                 <div class="d-flex align-items-center gap-3">
-                    <div class="fw-semibold">Package 1 of {{$index}}</div>
+                    <div class="fw-semibold">Package 1 of {{$groupIndex + 1}}</div>
                 </div>
                 <div class="cursor-pointer">
                     <span class="text-black-50 pe-2">Shipped by</span> <span class="fw-semibold">{{item.brand}}</span>
@@ -35,16 +35,18 @@
                     <div class="text-title"> Delivery Option</div>
                 </div>
 
-                <div class="checkout-delivery-card">
+             
+                @for (subItem of item.items; track $index) {
+
+                       <div class="checkout-delivery-card">
                     <div class="delivery-header">
                         <div class="check-icon"></div>
-                        <div class="price">Rs. 180</div>
+                        <div class="price">{{subItem.deliveryFee| currency:'USD' }}</div>
                     </div>
                     <div class="delivery-type">Standard Delivery</div>
-                    <div class="delivery-time">Get by 23-30 Jun</div>
+                    <div class="delivery-time">Get by {{currentDate|date:'mediumDate'}} - {{expectedDate|date:'mediumDate'}}</div>
                 </div>
 
-                @for (subItem of item.items; track $index) {
                 <div class="row product-card">
                     <div class="col-md-8">
                         <div class="d-flex">
@@ -64,12 +66,12 @@
                             <div class="d-flex total-price m">{{subItem.totalPrice |currency:'USD' }}</div>
                             <div class="previous-price">{{subItem.price |currency:'USD'}}</div>
                             <div>{{subItem.discountPercentage}}%</div>
-                            <div class="ps-2"><i class="fas fa-trash"></i></div>
+                            <div class="ps-2" (click)="deleteItem()"><i class="fas fa-trash"></i></div>
                         </div>
                     </div>
 
                     <div class="col-md-1">
-                        <div>Qty: <span class="text-black-50">{{subItem.quantity}}</span></div>
+                        <div>Qty: <span class="text-black-50">{{subItem.updatedQuantity}}</span></div>
                     </div>
                 </div>
                 }

@@ -1,3 +1,4 @@
+import { ICartItem } from "../interfaces/cart.interface"
 
 export class CalculatedAmountSummary{
 subTotalAmount:number=0
@@ -12,3 +13,5 @@ constructor(){
 
 
 }
+
+

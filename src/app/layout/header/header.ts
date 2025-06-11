@@ -20,9 +20,7 @@ export class Header implements OnInit, OnDestroy {
   cartSubscription:Subscription=new Subscription()
  
 
-  constructor(){
-    
-  }
+  constructor(){}
 
   ngOnInit(){ 
     this.getCartList()
@@ -33,9 +31,8 @@ export class Header implements OnInit, OnDestroy {
   }
 
   getCartList(){
-   this.cartSubscription= this.cartService.cartAction$.subscribe(response=>{
-    
-      this.cartTotalItem.set(this.cartService.groupItemsByIdArray().length)
+   this.cartSubscription= this.cartService.cartAction$.subscribe(()=>{
+      this.cartTotalItem.set(this.cartService.groupedCartItemsArray().length)
     })
   }
 

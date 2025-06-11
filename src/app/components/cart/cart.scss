@@ -30,13 +30,28 @@
                 width: 80px;
                 height: 80px;
             }
-            .cart-sub-text{
+
+            .cart-sub-text {
                 font-size: 12px;
             }
-            .original-price{
+
+            .original-price {
                 text-decoration: line-through;
                 color: gray;
             }
+
+        }
+
+        &-empty-placeholder {
+            background-color: white;
+            margin-top: 30px;
+            min-height: 470px; // or whatever height you prefer
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: gray;
         }
 
         &-address-summary {
@@ -77,12 +92,19 @@
                 &:hover {
                     background-color: #d45a1f;
                 }
+
+                &:disabled {
+                    background-color: grey !important;
+                    cursor: not-allowed;
+                    opacity: 0.7;
+                }
             }
 
         }
     }
 }
-.text-heading{
+
+.text-heading {
     color: #f57224;
 }
 
@@ -91,6 +113,6 @@
     text-align: center;
 }
 
-.cursor-pointer{
+.cursor-pointer {
     cursor: pointer;
 }
