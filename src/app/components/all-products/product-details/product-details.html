@@ -8,12 +8,12 @@
                     [containerStyle]="{ 'max-width': '640px' }"
                     [showThumbnails]="p.images.length > 1">
                     <ng-template pTemplate="item" let-item>
-                        <img [src]="item" style="width: 100%; display: block" />
+                        <img [src]="item" class="thumbnail-container"/>
                     </ng-template>
                     <ng-template pTemplate="thumbnail" let-item>
                         @if (p.images.length>1) {
                         <div class="grid gap-4 justify-center">
-                            <img [src]="item" style="width: 100%; display: block" />
+                            <img [src]="item"  class="thumbnail-multiple-images" />
                         </div>
                         }
                     </ng-template>
