@@ -9,3 +9,8 @@ export const DEFAULT_PRODUCT_VALUE = {
   deliveryFee: 200,
   updatedQuantity:1
 };
+
+
+export const COUPON_CODE='daraz.com'
+
+export const PROMO_CODE='emumba'

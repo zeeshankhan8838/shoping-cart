@@ -1,5 +1,5 @@
 import { CurrencyPipe, DatePipe } from '@angular/common';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, model, OnInit, signal } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { CartService } from '../../shared/services/cart';
@@ -7,6 +7,7 @@ import { IGroupedCartItems } from '../../shared/interfaces/cart.interface';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { PROMO_CODE } from '../../shared/constants/cart.constant';
 
 @Component({
   selector: 'app-checkout',
@@ -24,6 +25,8 @@ export class Checkout implements OnInit {
   // Component state
   readonly calculatedAmountSummary = this.cartService.calculatedAmount;
   readonly groupedCartItemsArray = signal<IGroupedCartItems[]>([]);
+  promoCode=model('')
+  isPromoCodeDisable=signal(false) 
   
   // Date calculations
   readonly currentDate = new Date();
@@ -108,4 +111,9 @@ export class Checkout implements OnInit {
     }
     return true;
   }
+
+   promoCodeChange(){
+      this.promoCode()==PROMO_CODE? this.isPromoCodeDisable.set(true):this.isPromoCodeDisable.set(false)
+    }
+  
 }

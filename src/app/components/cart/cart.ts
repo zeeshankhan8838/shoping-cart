@@ -1,11 +1,12 @@
 import { CurrencyPipe } from '@angular/common';
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, model, OnInit, signal } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { Subscription } from 'rxjs';
 import { ICartItem } from '../../shared/interfaces/cart.interface';
 import { CartService } from '../../shared/services/cart';
+import { COUPON_CODE } from '../../shared/constants/cart.constant';
 
 @Component({
   selector: 'app-cart',
@@ -22,6 +23,8 @@ export class Cart implements OnInit {
   private readonly cartSubscription = new Subscription();
   groupedCartItemsArray = this.cartService.getCartFilterList();
   $groupIndex = 0;
+  coupon=model('')
+  isCouponDisable=signal(false)
 
   // Computed Values
   readonly calculatedAmountSummary = this.cartService.calculatedAmount;
@@ -116,6 +119,10 @@ export class Cart implements OnInit {
   private refreshCartList(): void {
     this.groupedCartItemsArray = this.cartService.getCartFilterList();
     this.updateCartState('delete');
+  }
+
+  couponChange(){
+    this.coupon()==COUPON_CODE? this.isCouponDisable.set(true):this.isCouponDisable.set(false)
   }
 
   /**

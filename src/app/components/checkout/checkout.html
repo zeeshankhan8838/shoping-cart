@@ -93,12 +93,15 @@
 
             <div class="d-flex mt-3 p-1 gap-3">
                 <div class="w-100">
-                    <input type="text" class="form-control" placeholder="Enter Store/Daraz Code">
+                    <input type="text" class="form-control" [(ngModel)]="promoCode" [ngModelOptions]="{standalone:true}" (ngModelChange)="promoCodeChange()" placeholder="Enter Store/Daraz Code">
                 </div>
                 <div>
-                    <button type="button" class="apply-btn">APPLY</button>
+                    <button type="button" class="apply-btn" [disabled]="isPromoCodeDisable()">APPLY</button>
                 </div>
             </div>
+            @if (isPromoCodeDisable()) {
+                <span class="text-success fw-semibold">🎉Congratulation your promo code is valid</span>
+            }
 
 
             <div class="d-flex justify-content-between mt-3 mb-3">

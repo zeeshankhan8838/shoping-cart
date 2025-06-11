@@ -99,12 +99,15 @@
 
             <div class="d-flex mt-3 p-3 gap-3">
                 <div class="w-100">
-                    <input type="text" class="form-control" placeholder="Enter Coupon Code">
+                    <input type="text" class="form-control" [(ngModel)]="coupon" (ngModelChange)="couponChange()" [disabled]="isCouponDisable()" [ngModelOptions]="{standalone:true}" placeholder="Enter Coupon Code">
                 </div>
                 <div>
-                    <button type="button" class="apply-btn">APPLY</button>
+                    <button type="button" class="apply-btn" [disabled]="isCouponDisable()">APPLY</button>
                 </div>
             </div>
+            @if (isCouponDisable()) {
+                <span class="text-success fw-semibold">🎉Congratulation your coupon is valid</span>
+            }
             <div class="d-flex justify-content-between mt-3">
                 <div class="fw-semibold">Total</div>
                 <div>{{calculatedAmountSummary.totalAmount|currency:'USD' }}</div>
