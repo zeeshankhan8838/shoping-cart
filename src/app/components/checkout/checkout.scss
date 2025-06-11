@@ -1,0 +1,175 @@
+ .container {
+     margin: 30px auto;
+
+     i {
+         color: gray;
+     }
+
+     a {
+         text-decoration: none;
+     }
+
+     .checkout {
+         &-header-bar {
+             background-color: #fafafa;
+             padding: 12px;
+         }
+
+         &-header-description {
+             background-color: white;
+             padding: 12px;
+             font-size: 12px;
+             font-weight: 500;
+         }
+
+         &-info-container-bar {
+             background-color: #fafafa;
+             padding: 12px;
+         }
+
+         &-package-container {
+             background-color: white;
+             padding: 12px;
+
+             .text-title {
+                 font-size: 12px;
+             }
+         }
+
+         &-content-wrapper {
+             background-color: white;
+             padding: 12px;
+
+             .checkout-delivery-card {
+                 background: #fbfdfe;
+                 border: 2px solid #00a8e8;
+                 border-radius: 8px;
+                 padding: 20px;
+                 width: 280px;
+                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+                 .delivery-header {
+                     display: flex;
+                     align-items: center;
+                     margin-bottom: 8px;
+                 }
+
+                 .check-icon {
+                     width: 20px;
+                     height: 20px;
+                     background-color: #00a8e8;
+                     border-radius: 50%;
+                     display: flex;
+                     align-items: center;
+                     justify-content: center;
+                     margin-right: 12px;
+                     flex-shrink: 0;
+                 }
+
+                 .check-icon::after {
+                     content: '✓';
+                     color: white;
+                     font-size: 12px;
+                     font-weight: bold;
+                 }
+
+                 .price {
+                     font-size: 16px;
+                     font-weight: 600;
+                     color: #333;
+                     margin: 0;
+                 }
+
+                 .delivery-type {
+                     font-size: 14px;
+                     color: #666;
+                     margin: 4px 0 16px 0;
+                 }
+
+                 .delivery-time {
+                     font-size: 14px;
+                     color: #666;
+                     margin: 0;
+                 }
+             }
+
+             .product-card {
+
+                 margin-top: 40px;
+
+                 .product-image {
+                     width: 80px;
+                     height: 80px;
+                     margin-right: 10px;
+                 }
+
+                 .product-title {
+                     font-size: 14px;
+                     font-weight: 500;
+                     color: #333;
+                     line-height: 1.4;
+                     margin: 0 0 8px 0;
+                 }
+
+                 .product-meta {
+                     font-size: 12px;
+                     color: #888;
+                     margin: 0 0 12px 0;
+                 }
+                 .price-section{
+
+                    .total-price{
+                        color: #f57224;
+                        font-size: 20px;
+                    }
+                    .previous-price{
+                        text-decoration: line-through;
+                        color: #888;
+                    }
+                 }
+             }
+         }
+
+         &-address-summary {
+             background-color: white;
+             padding: 20px;
+
+             input {
+                 width: 100%;
+                 padding: 10px;
+                 border: 1px solid #ccc;
+                 border-radius: 4px;
+                 font-size: 16px;
+                 margin-bottom: 10px;
+             }
+
+             .apply-btn {
+                 background-color: #2abbe8;
+                 color: white;
+                 padding: 11px 20px;
+                 border: none;
+                 cursor: pointer;
+                 font-size: 16px;
+
+                 &:hover {
+                     background-color: #1a8bbf;
+                 }
+             }
+
+             .proceed-btn {
+                 background-color: #f57224;
+                 color: white;
+                 padding: 10px 20px;
+                 border: none;
+                 cursor: pointer;
+                 width: 100%;
+                 font-size: 16px;
+
+                 &:hover {
+                     background-color: #d45a1f;
+                 }
+             }
+         }
+     }
+
+ }

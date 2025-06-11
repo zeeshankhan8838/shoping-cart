@@ -6,10 +6,11 @@ import { Subscription } from 'rxjs';
 import { IProduct } from '../../shared/interfaces/product.interface';
 import { CurrencyPipe } from '@angular/common';
 import { ICartItem, IGroupedCartItems } from '../../shared/interfaces/cart.interface';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
-  imports: [InputNumberModule, FormsModule, ReactiveFormsModule, CurrencyPipe],
+  imports: [InputNumberModule, FormsModule, ReactiveFormsModule, CurrencyPipe,RouterModule],
   templateUrl: './cart.html',
   styleUrl: './cart.scss'
 })

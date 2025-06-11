@@ -16,7 +16,7 @@ export class Header implements OnInit, OnDestroy {
   searchText = model('')
   productService = inject(Product)
   cartService=inject(CartService)
-  carttotalItem=signal(0)
+  cartTotalItem=signal(0)
   cartSubscription:Subscription=new Subscription()
  
 
@@ -34,7 +34,8 @@ export class Header implements OnInit, OnDestroy {
 
   getCartList(){
    this.cartSubscription= this.cartService.cartAction$.subscribe(response=>{
-      this.carttotalItem.set(response.length)
+    
+      this.cartTotalItem.set(this.cartService.groupItemsByIdArray().length)
     })
   }
 

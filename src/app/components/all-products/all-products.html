@@ -12,7 +12,7 @@
     @if (isGridView() && productList.length > 0) {
     <app-product-grid-view [allProducts]="productList" (productItemId)="navigateById($event)"></app-product-grid-view>
     } @else {
-    <app-prouct-list-view [allProducts]="productList" (productItemId)="navigateById($event)"></app-prouct-list-view>
+    <app-product-list-view [allProducts]="productList" (productItemId)="navigateById($event)"></app-product-list-view>
     }
 
     <div class="mb-4">

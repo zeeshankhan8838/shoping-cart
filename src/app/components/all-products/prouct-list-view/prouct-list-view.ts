@@ -3,7 +3,7 @@ import { IProduct } from '../../../shared/interfaces/product.interface';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-prouct-list-view',
+  selector: 'app-product-list-view',
   imports: [CommonModule, CurrencyPipe],
   templateUrl: './prouct-list-view.html',
   styleUrl: './prouct-list-view.scss'
