@@ -1,3 +1,5 @@
+import { ICartItem } from "./cart.interface";
+
 export interface IDimensions {
   width: number;
   height: number;
@@ -46,6 +48,19 @@ export interface IProduct {
 
 export interface IProductResponse {
   products: IProduct[];
+  total: number;
+  skip: number;
+  limit: number;
+}
+
+// Define the ResponsiveOption type for gallery options
+ export  interface ResponsiveOption {
+    breakpoint: string;
+    numVisible: number;
+  }
+
+  export interface ProductDetailResponse {
+  products: ICartItem;
   total: number;
   skip: number;
   limit: number;

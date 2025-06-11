@@ -1,88 +1,69 @@
-import { inject, Injectable, Resource, resource } from '@angular/core';
-import { CrudService } from './crud';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { catchError, Observable, Subject, throwError } from 'rxjs';
 import { apiEndpoints } from '../constants/endpoints';
-import { IProductResponse } from '../interfaces/product.interface';
-import { Subject } from 'rxjs';
+import { DEFAULT_PLACEHOLDER_IMAGE } from '../constants/product.constant';
+import { ApiError } from '../interfaces/api-base-action.inteface';
+import { ICartItem } from '../interfaces/cart.interface';
+import { IProductResponse as ProductResponse } from '../interfaces/product.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Product {
+  private http = inject(HttpClient);
+  searchText$: Subject<string> = new Subject();
+  messageService=inject(MessageService)
 
-  crudServuce = inject(CrudService)
-  searchText$:Subject<string>=new Subject()
-  // productList!: Resource<any>;
-  constructor() { }
-
-
-
-  // getAllProducts() {
-  //   this.productList = resource({
-  //     loader: async () => {
-  //       const response = await fetch(`https://api.example.com/products`);
-  //       if (!response.ok) {
-  //         throw new Error('Failed to fetch product');
-  //       }
-  //       return (await response.json()) as any;
-  //     },
-  //   });
-  // }
-
-  // getProductById(id: string) {
-  //   return resource({
-  //     loader: async () => {
-  //       const response = await fetch(`https://api.example.com/products/${id}`);
-  //       if (!response.ok) {
-  //         throw new Error('Failed to fetch product');
-  //       }
-  //       return (await response.json()) as any;
-  //     },
-  //   });
-  // }
-
-  async getallProducts(skip: number, limit: number) {
-    try {
-      const apiResponse = await this.crudServuce.get(apiEndpoints.allProducts(skip, limit)) as IProductResponse;
-      if (apiResponse) {
-        return apiResponse;
-      } else {
-        throw new Error('Failed to fetch products');
-      }
-    } catch (error) {
-      console.error('Error fetching products:', error);
-      throw error;
-    }
+  getallProducts(skip: number, limit: number): Observable<ProductResponse> {
+    return this.http.get<ProductResponse>(apiEndpoints.allProducts, {
+      params: { skip: skip.toString(), limit: limit.toString() }
+    }).pipe(
+      catchError(error => this.handleError(error))
+    );
   }
 
-  async getProductById(id: number) {
-    try {
-      const apiResponse = await this.crudServuce.get(apiEndpoints.getProductById(id));
-      if (apiResponse) {
-        return apiResponse;
-      } else {
-        throw new Error('Product not found');
-      }
-    } catch (error) {
-      console.error('Error fetching product by ID:', error);
-      throw error;
-    }
+  getProductById(id: number): Observable<ICartItem> {
+    return this.http.get<ICartItem>(apiEndpoints.getProductById(id)).pipe(
+      catchError(error => this.handleError(error))
+    );
   }
 
-  async getSearchResults(query: string) {
-    try { 
-      const apiResponse = await this.crudServuce.get(apiEndpoints.searchProducts(query)) as IProductResponse;
-      if (apiResponse) {
-        return apiResponse;
-      } else {
-        throw new Error('Failed to fetch search results');
-      }
-    } catch (error) {
-      throw error
-    }
+  getSearchResults(query: string): Observable<ProductResponse> {
+    return this.http.get<ProductResponse>(apiEndpoints.searchProducts(query)).pipe(
+      catchError(error => this.handleError(error))
+    );
   }
 
-  async searchProducts(query: string) {
-    return await this.crudServuce.get(apiEndpoints.searchProducts(query));
+   private handleError(error: HttpErrorResponse): Observable<never> {
+    const apiError: ApiError = {
+      message: error.error?.message || 'An unknown error occurred',
+      status: error.status,
+      timestamp: new Date()
+    };
+    return throwError(() => apiError);
   }
 
+  showErrorToastMessage(error: ApiError, summary: string): void {
+    return this.messageService.add({
+      severity: 'error',
+      summary,
+      detail: error.message
+    });
+  }
+
+   /**
+   * Handles image loading errors by setting a fallback image
+   * @param {Event} event - Image error event
+   */
+  handleImageError(event: Event): void {
+    if (!event.target) return;
+    
+    const imgElement = event.target as HTMLImageElement;
+    imgElement.onerror = null; // Prevent infinite loop
+    imgElement.src = DEFAULT_PLACEHOLDER_IMAGE;
+    
+    console.warn(`Image load failed, using placeholder: ${imgElement.alt}`);
+  }
 }

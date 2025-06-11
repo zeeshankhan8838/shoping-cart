@@ -1,8 +1,8 @@
+import { environment } from "../../../environments/environments";
 
 export const apiEndpoints = {
-    allProducts:(skip:number,limit:number)=> `products?limit=${limit}&skip=${skip}`,
-    getProductById: (id: number) => `products/${id}`,
-    searchProducts: (query: string) => `products/search?q=${query}`,
-
+    allProducts: `${environment.apiURL}products`,
+    getProductById: (id: number) => `${environment.apiURL}products/${id}`,
+    searchProducts: (query: string) => `${environment}products/search?q=${query}`,
 }
 

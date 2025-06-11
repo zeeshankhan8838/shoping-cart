@@ -17,3 +17,9 @@ export interface IApiBaseActions {
 export interface IApiBaseResponse {
  response: any;
 }
+
+export interface ApiError {
+  message: string;
+  status?: number;
+  timestamp?: Date;
+}

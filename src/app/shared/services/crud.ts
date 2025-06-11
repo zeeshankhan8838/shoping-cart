@@ -31,4 +31,5 @@ export class CrudService {
     delete(endpoint: string, body?: any, params?: any) {
         return lastValueFrom(this.apiService.Delete(this.getApiUrl(endpoint), body, params));
     }
+    
 }

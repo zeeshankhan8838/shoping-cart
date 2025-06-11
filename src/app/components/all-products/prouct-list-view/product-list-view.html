@@ -1,0 +1,70 @@
+
+<!-- Product list container with grid layout -->
+<div class="product-list" role="list">
+    <!-- Product items iteration -->
+    @for (item of allProducts(); track item.id) {
+    <div class="product-item" role="listitem">
+        <div class="product-content">
+            <!-- Product image section -->
+            <div class="product-image">
+                <img [src]="item.thumbnail" [alt]="item.title" (error)="handleImageError($event)">
+            </div>
+
+            <!-- Product information section -->
+            <div class="product-info">
+                <!-- Product badges -->
+                <div class="product-badges">
+                    @if(isLowStock(item.availabilityStatus)) {
+                    <span class="badge new" aria-label="Low stock alert">Low Stock</span>
+                    }
+                    @if(isBeautyCategory(item.category)) {
+                    <span class="badge stock" aria-label="Beauty category">Beauty</span>
+                    }
+                    <span class="badge overseas" aria-label="SKU">{{item.sku}}</span>
+                    <span class="badge warranty" aria-label="Weight">Weight {{item.weight}}</span>
+                </div>
+
+                <!-- Product details -->
+                <h3 class="product-title">{{item.title}}</h3>
+                <p class="product-subtitle">{{item.description}}</p>
+
+                <!-- Product features list -->
+                <ul class="product-features" aria-label="Product features">
+                    <li>{{item.returnPolicy}}</li>
+                    <li>{{item.warrantyInformation}}</li>
+                    <li>{{item.shippingInformation}}</li>
+                    <li>Max discount offer {{item.discountPercentage | number:'1.0-0'}}%</li>
+                    <li>
+                        Product dimension:
+                        Width={{item.dimensions.width}},
+                        Height={{item.dimensions.height}},
+                        Depth={{item.dimensions.depth}}
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Product metadata section -->
+            <div class="product-meta">
+                <div class="product-price" aria-label="Price">
+                    {{item.price | currency:'USD'}}
+                </div>
+                <div class="product-sales" aria-label="Stock">
+                    Stock {{item.stock}}
+                </div>
+                <div class="product-rating" aria-label="Rating">
+                    <!-- Replace the existing rating div with this -->
+                    <div class="product-rating" aria-label="Rating">
+                        <p-rating [ngModel]="item.rating" [readonly]="true" [stars]="5" [disabled]="true">
+                        </p-rating>
+                        <span class="rating-count">({{item.rating}})</span>
+                    </div> <span class="rating-count">({{item.rating}})</span>
+                </div>
+                <button class="btn-primary" (click)="productItemId.emit(item.id)"
+                    [attr.aria-label]="'View details for ' + item.title">
+                    View Details
+                </button>
+            </div>
+        </div>
+    </div>
+    }
+</div>

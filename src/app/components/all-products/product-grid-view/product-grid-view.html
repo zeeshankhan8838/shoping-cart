@@ -1,20 +1,49 @@
-<div class="product-grid">
+<!-- Product grid container with responsive layout -->
+<div class="product-grid" role="grid">
+    <!-- Product items iteration with tracking -->
     @for (item of allProducts(); track item.id) {
-        <div class="product-card" (click)="productItemId.emit(item.id)">
+        <div class="product-card" 
+             role="gridcell"
+             (click)="productItemId.emit(item.id)"
+             [attr.aria-label]="'View details for ' + item.title">
+            
+            <!-- Product image section -->
             <div class="product-image">
-                <div class="promotional-badge">Daraz Mall</div>
+                    <div class="promotional-badge" aria-label="Daraz Mall product">
+                        Daraz Mall
+                    </div>
+                
                 <div class="h-100">
-                     <img [src]="item.thumbnail" alt="Produuct image">
+                    <img [src]="item.thumbnail" 
+                         [alt]="item.title"
+                         (error)="handleImageError($event)"
+                         loading="lazy">
                 </div>
             </div>
+
+            <!-- Product information section -->
             <div class="product-info">
-                <div class="product-title">{{item.title}}</div>
-                <div class="product-price">{{item.price | currency:'USD'}}</div>
-                <div class="discount-save">Discount {{item.discountPercentage}}%</div>
+                <div class="product-title" [title]="item.title">
+                    {{item.title}}
+                </div>
+                <div class="product-price" aria-label="Price">
+                    {{item.price | currency:'USD'}}
+                </div>
+                @if (item.discountPercentage) {
+                    <div class="discount-save" aria-label="Discount percentage">
+                        Discount {{item.discountPercentage | number:'1.0-0'}}%
+                    </div>
+                }
                 <div class="product-meta">
-                    <span class="product-origin">{{item.brand}}</span>
+                    <span class="product-origin" aria-label="Brand">
+                        {{item.brand}}
+                    </span>
                 </div>
             </div>
+        </div>
+    } @empty {
+        <div class="no-products" role="alert">
+            No products available
         </div>
     }
 </div>

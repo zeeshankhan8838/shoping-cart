@@ -14,61 +14,114 @@ import { CartService } from '../../shared/services/cart';
   styleUrl: './cart.scss'
 })
 export class Cart implements OnInit {
-  cartService = inject(CartService)
-  cartSubscription: Subscription = new Subscription()
-  groupedCartItemsArray = this.cartService.getCartFilterList()
-  $groupIndex: number = 0;
-  cdr = inject(ChangeDetectorRef)
-  calculatedAmountSummary = this.cartService.calculatedAmount
+  // Injected Services
+  private readonly cartService = inject(CartService);
+  private readonly cdr = inject(ChangeDetectorRef);
 
+  // Component State
+  private readonly cartSubscription = new Subscription();
+  private groupedCartItemsArray = this.cartService.getCartFilterList();
+  private groupIndex = 0;
+
+  // Computed Values
+  readonly calculatedAmountSummary = this.cartService.calculatedAmount;
+
+  /**
+   * Initializes cart and calculates total amount
+   */
   ngOnInit(): void {
-    this.cartService.getTotalAmountSummary(this.groupedCartItemsArray)
+    this.cartService.getTotalAmountSummary(this.groupedCartItemsArray);
   }
 
-
-  selectAllItems(event: Event) {
+  /**
+   * Handles selection of all cart items
+   * @param event Checkbox change event
+   */
+  selectAllItems(event: Event): void {
     const checked = (event.target as HTMLInputElement).checked;
-    this.cartService.selectAllItems(this.groupedCartItemsArray, checked)
-    this.cartService.getTotalAmountSummary(this.groupedCartItemsArray)
-
+    this.cartService.selectAllItems(this.groupedCartItemsArray, checked);
+    this.updateCartTotals();
   }
 
-  deleteSubItem() {
-    this.groupedCartItemsArray.splice(this.$groupIndex, 1)
-    this.cartService.updateGroupCartList(this.groupedCartItemsArray)
-    this.cartService.getTotalAmountSummary(this.groupedCartItemsArray)
-    this.cartService.cartAction$.next('delete')
+  /**
+   * Removes a specific item from cart
+   */
+  deleteSubItem(): void {
+    this.groupedCartItemsArray.splice(this.groupIndex, 1);
+    this.updateCartState('delete');
   }
 
-  deleteAllItems() {
-    if (this.groupedCartItemsArray.length) {
-      this.cartService.deleteProductIntoCart()
-      this.getCartGroupList()
-      this.cartService.getTotalAmountSummary(this.groupedCartItemsArray)
-      this.cartService.cartAction$.next('delete')
+  /**
+   * Removes all items from cart
+   */
+  deleteAllItems(): void {
+    if (!this.groupedCartItemsArray.length) return;
+
+    this.cartService.deleteProductIntoCart();
+    this.refreshCartList();
+  }
+
+  /**
+   * Updates cart when item quantity changes
+   * @param item Changed cart item
+   */
+  quantityChange(item: ICartItem): void {
+    this.cartService.calculatePrice(item);
+    this.updateCartTotals();
+  }
+
+  /**
+   * Handles item selection changes
+   */
+  checkboxChange(): void {
+    this.updateCartState();
+  }
+
+  /**
+   * Checks if checkout should be enabled
+   */
+  get isCheckoutEnabled(): boolean {
+    return !this.groupedCartItemsArray.some(x => x.isSelected);
+  }
+
+  /**
+   * Returns count of selected items
+   */
+  get selectedItemCount(): number {
+    return this.groupedCartItemsArray.filter(x => x.isSelected).length;
+  }
+
+  /**
+   * Updates cart state and totals
+   */
+  private updateCartState(action?: 'delete'): void {
+    this.cartService.updateGroupCartList(this.groupedCartItemsArray);
+    this.updateCartTotals();
+    if (action) {
+      this.cartService.cartAction$.next(action);
     }
   }
 
-  quantityChange(item: ICartItem) {
-    this.cartService.calculatePrice(item)
-    this.cartService.getTotalAmountSummary(this.groupedCartItemsArray)
+  /**
+   * Updates cart totals
+   */
+  private updateCartTotals(): void {
+    this.cartService.getTotalAmountSummary(this.groupedCartItemsArray);
+    this.cdr.detectChanges();
   }
 
-  checkboxChange() {
-    this.cartService.updateGroupCartList(this.groupedCartItemsArray)
-    this.cartService.getTotalAmountSummary(this.groupedCartItemsArray)
+  /**
+   * Refreshes cart list data
+   */
+  private refreshCartList(): void {
+    this.groupedCartItemsArray = this.cartService.getCartFilterList();
+    this.updateCartState('delete');
   }
 
-  get isCheckoutEnabled() {
-    return !this.groupedCartItemsArray.some(x => x.isSelected)
+  /**
+   * Cleanup subscriptions
+   */
+  ngOnDestroy(): void {
+    this.cartSubscription.unsubscribe();
   }
-
-  getCartGroupList() {
-    this.groupedCartItemsArray = this.cartService.getCartFilterList()
-  }
-
-  get selectedItemCount() {
-    return this.groupedCartItemsArray.filter(x => x.isSelected).length
-  }
-
 }

@@ -1,23 +1,47 @@
+<!-- Product listing container with grid/list view toggle and pagination -->
 <div class="container">
+    <!-- Header section with product count and view toggle -->
     <div class="d-flex justify-content-between selection-tab align-items-end">
-        <div> <span class="product-count"> Total Products: {{totalRecords}}</span> </div>
+        <!-- Product count display -->
         <div>
-            <p-selectbutton [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
+            <span class="product-count">Total Products: {{totalRecords()}}</span>
+        </div>
+        
+        <!-- View toggle buttons -->
+        <div>
+            <p-selectbutton 
+                [(ngModel)]="layout" 
+                [options]="options()" 
+                [allowEmpty]="false">
                 <ng-template #item let-item>
-                    <i class="fas " [ngClass]="{ 'fa-bars': item === 'list', 'fa-table': item === 'grid' }"></i>
+                    <i class="fas" [ngClass]="getActiveClass(item)"></i>
                 </ng-template>
             </p-selectbutton>
         </div>
     </div>
-    @if (isGridView() && productList.length > 0) {
-    <app-product-grid-view [allProducts]="productList" (productItemId)="navigateById($event)"></app-product-grid-view>
+
+    <!-- Conditional rendering of grid/list views -->
+    @if (isGridView() && productList().length > 0) {
+        <app-product-grid-view 
+            [allProducts]="productList()" 
+            (productItemId)="navigateById($event)">
+        </app-product-grid-view>
     } @else {
-    <app-product-list-view [allProducts]="productList" (productItemId)="navigateById($event)"></app-product-list-view>
+        <app-product-list-view 
+            [allProducts]="productList()" 
+            (productItemId)="navigateById($event)">
+        </app-product-list-view>
     }
 
+    <!-- Pagination component -->
     <div class="mb-4">
-        <p-paginator (onPageChange)="onPageChange($event)" [first]="skip" [rows]="limit" appendTo="body" [totalRecords]="totalRecords"
-            [rowsPerPageOptions]="paginationPageOption" />
+        <p-paginator 
+            [first]="skip()" 
+            [rows]="limit()" 
+            [totalRecords]="totalRecords()" 
+            [rowsPerPageOptions]="paginationPageOption()"
+            (onPageChange)="onPageChange($event)" 
+            appendTo="body">
+        </p-paginator>
     </div>
-
 </div>

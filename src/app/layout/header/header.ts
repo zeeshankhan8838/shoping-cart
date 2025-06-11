@@ -4,39 +4,55 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Product } from '../../shared/services/resouce-api-product';
 import { RouterModule } from '@angular/router';
 import { CartService } from '../../shared/services/cart';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-header',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule,RouterModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
   templateUrl: './header.html',
   styleUrl: './header.scss'
 })
 export class Header implements OnInit, OnDestroy {
-  searchText = model('')
-  productService = inject(Product)
-  cartService=inject(CartService)
-  cartTotalItem=signal(0)
-  cartSubscription:Subscription=new Subscription()
- 
+   // Injected services
+  private readonly productService = inject(Product);
+  private readonly cartService = inject(CartService);
+  private readonly destroy$ = new Subject<void>();
 
-  constructor(){}
+  // Component state
+  readonly searchText = model('');
+  readonly cartTotalItem = signal<number>(0);
 
-  ngOnInit(){ 
-    this.getCartList()
+  /**
+   * Initializes cart subscription on component load
+   */
+  ngOnInit(): void {
+    this.initializeCartSubscription();
   }
 
-  searchTextChange() {
-    this.productService.searchText$.next(this.searchText())
+  /**
+   * Updates search text in product service
+   */
+  searchTextChange(): void {
+    this.productService.searchText$.next(this.searchText());
   }
 
-  getCartList(){
-   this.cartSubscription= this.cartService.cartAction$.subscribe(()=>{
-      this.cartTotalItem.set(this.cartService.groupedCartItemsArray().length)
-    })
+  /**
+   * Subscribes to cart updates and updates total items
+   */
+  private initializeCartSubscription(): void {
+    this.cartService.cartAction$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        const totalItems = this.cartService.groupedCartItemsArray().length;
+        this.cartTotalItem.set(totalItems);
+      });
   }
 
+  /**
+   * Cleanup subscriptions on component destroy
+   */
   ngOnDestroy(): void {
-    this.cartSubscription.unsubscribe()
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
