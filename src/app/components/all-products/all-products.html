@@ -22,15 +22,28 @@
 
     <!-- Conditional rendering of grid/list views -->
     @if (isGridView() && productList().length > 0) {
-        <app-product-grid-view 
+        @if(loading()){
+        <app-grid-view-loader></app-grid-view-loader>
+        }@else {
+       <app-product-grid-view 
             [allProducts]="productList()" 
             (productItemId)="navigateById($event)">
         </app-product-grid-view>
+        }
+ 
+
     } @else {
-        <app-product-list-view 
-            [allProducts]="productList()" 
-            (productItemId)="navigateById($event)">
-        </app-product-list-view>
+        @if(loading()){
+                        <app-list-view-loader></app-list-view-loader>
+        }
+        @else {
+            <app-product-list-view 
+                [allProducts]="productList()" 
+    
+                (productItemId)="navigateById($event)">
+            </app-product-list-view>
+
+        }
     }
 
     <!-- Pagination component -->

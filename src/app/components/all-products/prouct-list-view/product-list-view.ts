@@ -1,4 +1,4 @@
-import { Component, inject, input, output } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { IProduct } from '../../../shared/interfaces/product.interface';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { DEFAULT_PLACEHOLDER_IMAGE, PRODUCT_CONSTANTS } from '../../../shared/constants/product.constant';
@@ -19,6 +19,8 @@ export class ProductListView {
 
   /** Input property for product list */
   allProducts = input<IProduct[]>();
+
+  loading = signal(true);
 
   /**
    * Checks if the product has low stock status

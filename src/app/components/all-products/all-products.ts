@@ -6,17 +6,19 @@ import { MessageService } from 'primeng/api';
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 import { SelectButton } from 'primeng/selectbutton';
 import { Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap, takeUntil } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, finalize, switchMap, takeUntil } from 'rxjs/operators';
 import { ERROR_MESSAGES, LAYOUT_TYPES } from '../../shared/constants/product.constant';
 import { ApiError } from '../../shared/interfaces/api-base-action.inteface';
 import { IProduct, IProductResponse } from '../../shared/interfaces/product.interface';
 import { Product } from '../../shared/services/product';
 import { ProductGridView } from "./product-grid-view/product-grid-view";
 import { ProductListView as ProductListView } from "./prouct-list-view/product-list-view";
+import { GridViewLoader } from './loader/grid-view-loader/grid-view-loader';
+import { ListViewLoader } from './loader/list-view-loader/list-view-loader';
 
 @Component({
   selector: 'app-all-products',
-  imports: [ProductListView, ProductGridView, SelectButton, CommonModule, FormsModule, ReactiveFormsModule, PaginatorModule, RouterModule],
+  imports: [ProductListView, ProductGridView, SelectButton, CommonModule, FormsModule, ReactiveFormsModule, PaginatorModule, RouterModule, GridViewLoader, ListViewLoader],
   templateUrl: './all-products.html',
   styleUrl: './all-products.scss'
 })
@@ -33,6 +35,7 @@ export class AllProducts implements OnInit, OnDestroy {
   readonly limit = signal(10);
   readonly totalRecords = signal(0);
   readonly paginationPageOption = signal([10, 20, 30]);
+  loading = signal(true)
 
   // Constants
   private readonly destroy$ = new Subject<void>();
@@ -61,7 +64,10 @@ export class AllProducts implements OnInit, OnDestroy {
     */
   getAllProductList(): void {
     this.productService.getallProducts(this.skip(), this.limit())
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntil(this.destroy$),
+        finalize(() => this.loading.set(false))
+      )
+
       .subscribe({
         next: (response: IProductResponse) => this.updateProductList(response),
         error: (error: ApiError) => {
@@ -85,6 +91,7 @@ export class AllProducts implements OnInit, OnDestroy {
             ? this.productService.getSearchResults(searchText)
             : this.productService.getallProducts(this.skip(), this.limit())
         ),
+          finalize(() => this.loading.set(false)),
         takeUntil(this.destroy$)
       )
       .subscribe({
@@ -114,6 +121,7 @@ export class AllProducts implements OnInit, OnDestroy {
    * @param {PaginatorState} event - The paginator state containing page info
    */
   onPageChange(event: PaginatorState): void {
+      this.loading.set(true);
     this.skip.set(event.first ?? 0);
     this.limit.set(event.rows ?? 10);
     this.getAllProductList();
