@@ -19,7 +19,7 @@
                 </div>
             </div>
 
-            @if(groupedCartItemsArray.length){
+            @if(groupedCartItemsArray().length){
             @for (item of groupedCartItemsArray(); track $groupIndex) {
             <div class="d-flex justify-content-between align-items-center checkout-info-container-bar mt-3">
                 <div class="d-flex align-items-center gap-3">
