@@ -19,16 +19,13 @@
 
 
     <!-- Conditional rendering of grid/list views -->
-    @if (isGridView() && productList().length > 0) {
-
-    <app-product-grid-view [allProducts]="productList()" (productItemId)="navigateById($event)" [loading]="loading()">
-    </app-product-grid-view>
-
+    @if (isListView() && productList().length > 0) {
+        <app-product-list-view [allProducts]="productList()" (productItemId)="navigateById($event)" [loading]="loading()">
+        </app-product-list-view>
     } @else {
-
-    <app-product-list-view [allProducts]="productList()" (productItemId)="navigateById($event)" [loading]="loading()">
-    </app-product-list-view>
-    }
+     <app-product-grid-view [allProducts]="productList()" (productItemId)="navigateById($event)" [loading]="loading()">
+    </app-product-grid-view>
+    } 
 
     <!-- Pagination component -->
     <div class="mb-4">

@@ -42,8 +42,8 @@ export class AllProducts implements OnInit, OnDestroy {
      * Determines if the current layout is grid view
      * @returns {boolean} True if current layout is grid, false otherwise
      */
-  isGridView(): boolean {
-    return this.layout() === LAYOUT_TYPES.GRID;
+  isListView(): boolean {
+    return this.layout() === LAYOUT_TYPES.LIST;
   }
 
   /**
