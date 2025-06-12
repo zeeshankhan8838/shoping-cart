@@ -86,10 +86,12 @@
                     <div class="position-relative">
 
 
+                        @if (cartTotalItem()>0) {
                         <div class="cart-badge">
                                   <!-- badge -->
                             <span>{{cartTotalItem()}}</span>
                         </div>
+                    }
                         <a [routerLink]="['/cart']" class="cart-icon">
                             <i class="fas fa-shopping-cart fa-lg"></i>
                       
