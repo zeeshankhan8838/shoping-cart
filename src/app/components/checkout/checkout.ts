@@ -72,13 +72,7 @@ export class Checkout implements OnInit {
     }
   }
 
-  /**
-   * Cleanup subscriptions
-   */
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
+
 
   /**
    * Private helper methods
@@ -97,7 +91,6 @@ export class Checkout implements OnInit {
     this.groupedCartItemsArray.set(items);
     this.cartService.updateGroupCartList(items);
     this.cartService.getTotalAmountSummary(items);
-    this.cartService.cartAction$.next('delete');
   }
 
   private validateOrder(): boolean {
@@ -116,5 +109,13 @@ export class Checkout implements OnInit {
    promoCodeChange(){
       this.promoCode()==PROMO_CODE? this.isPromoCodeDisable.set(true):this.isPromoCodeDisable.set(false)
     }
+
+      /**
+   * Cleanup subscriptions
+   */
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
   
 }

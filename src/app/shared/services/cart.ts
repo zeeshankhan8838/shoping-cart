@@ -95,5 +95,6 @@ export class CartService {
 
   updateGroupCartList(array: IGroupedCartItems[]) {
     this.groupedCartItemsArray.update(() => array);
+    this.cartAction$.next('update')
   }
 }
