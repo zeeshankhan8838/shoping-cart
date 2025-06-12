@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, inject, model, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, inject, input, model, OnDestroy, OnInit, signal } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { MessageService } from 'primeng/api';
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 import { SelectButton } from 'primeng/selectbutton';
 import { Subject } from 'rxjs';
@@ -12,13 +11,11 @@ import { ApiError } from '../../shared/interfaces/api-base-action.inteface';
 import { IProduct, IProductResponse } from '../../shared/interfaces/product.interface';
 import { Product } from '../../shared/services/product';
 import { ProductGridView } from "./product-grid-view/product-grid-view";
-import { ProductListView as ProductListView } from "./prouct-list-view/product-list-view";
-import { GridViewLoader } from './loader/grid-view-loader/grid-view-loader';
-import { ListViewLoader } from './loader/list-view-loader/list-view-loader';
+import { ProductListView } from "./prouct-list-view/product-list-view";
 
 @Component({
   selector: 'app-all-products',
-  imports: [ProductListView, ProductGridView, SelectButton, CommonModule, FormsModule, ReactiveFormsModule, PaginatorModule, RouterModule, GridViewLoader, ListViewLoader],
+  imports: [ProductListView, ProductGridView, SelectButton, CommonModule, FormsModule, ReactiveFormsModule, PaginatorModule, RouterModule],
   templateUrl: './all-products.html',
   styleUrl: './all-products.scss'
 })

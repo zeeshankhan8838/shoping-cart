@@ -20,7 +20,7 @@ export class ProductListView {
   /** Input property for product list */
   allProducts = input<IProduct[]>();
 
-  loading = signal(true);
+  loading = input(true);
 
   /**
    * Checks if the product has low stock status

@@ -1,6 +1,6 @@
-import { Component, inject, Input, input, output } from '@angular/core';
-import { IProduct } from '../../../shared/interfaces/product.interface';
 import { CommonModule, CurrencyPipe } from '@angular/common';
+import { Component, inject, input, output, signal } from '@angular/core';
+import { IProduct } from '../../../shared/interfaces/product.interface';
 import { Product } from '../../../shared/services/product';
 
 @Component({
@@ -17,6 +17,8 @@ export class ProductGridView {
 
   /** Output signal emitting selected product ID */
   readonly productItemId = output<number>();
+
+  loading = input(true);
 
   /**
    * Handles image loading errors by setting a fallback image

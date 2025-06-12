@@ -54,6 +54,7 @@ export class Checkout implements OnInit {
       summary: 'Success', 
       detail: 'Your Order has been placed' 
     });
+    this.cartService.updateGroupCartList([])
     this.router.navigate(['/']);
   }
 

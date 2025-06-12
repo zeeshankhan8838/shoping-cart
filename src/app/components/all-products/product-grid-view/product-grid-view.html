@@ -1,51 +1,64 @@
 <!-- Product grid container with responsive layout -->
 <div class="product-grid" role="grid">
+
+
+    @if(loading()){
+    @for (item of [1,2,3,4,5,6]; track $index) {
+    <div class="product-card skeleton" role="gridcell">
+        <div class="skeleton-image">
+            <div class="skeleton-badge"></div>
+        </div>
+        <div class="skeleton-content">
+            <div class="skeleton-title"></div>
+            <div class="skeleton-price"></div>
+            <div class="skeleton-discount"></div>
+            <div class="skeleton-meta"></div>
+        </div>
+    </div>
+    }
+    }@else{
+
     <!-- Product items iteration with tracking -->
     @for (item of allProducts(); track item.id) {
-        <div class="product-card" 
-             role="gridcell"
-             (click)="productItemId.emit(item.id)"
-             [attr.aria-label]="'View details for ' + item.title">
-            
-            <!-- Product image section -->
-            <div class="product-image">
-                    <div class="promotional-badge" aria-label="Daraz Mall product">
-                        Daraz Mall
-                    </div>
-                
-                <div class="h-100">
-                    <img [src]="item.thumbnail" 
-                         [alt]="item.title"
-                         (error)="handleImageError($event)"
-                         loading="lazy">
-                </div>
+    <div class="product-card" role="gridcell" (click)="productItemId.emit(item.id)"
+        [attr.aria-label]="'View details for ' + item.title">
+
+        <!-- Product image section -->
+        <div class="product-image">
+            <div class="promotional-badge" aria-label="Daraz Mall product">
+                Daraz Mall
             </div>
 
-            <!-- Product information section -->
-            <div class="product-info">
-                <div class="product-title" [title]="item.title">
-                    {{item.title}}
-                </div>
-                <div class="product-price" aria-label="Price">
-                    {{item.price | currency:'USD'}}
-                </div>
-                @if (item.discountPercentage) {
-                    <div class="discount-save" aria-label="Discount percentage">
-                        Discount {{item.discountPercentage | number:'1.0-0'}}%
-                    </div>
-                }
-                <div class="product-meta">
-                    <span class="product-origin" aria-label="Brand">
-                        {{item.brand}}
-                    </span>
-                </div>
+            <div class="h-100">
+                <img [src]="item.thumbnail" [alt]="item.title" (error)="handleImageError($event)" loading="lazy">
             </div>
         </div>
-    } @empty {
-        <div class="no-products" role="alert">
-            No products available
+
+        <!-- Product information section -->
+        <div class="product-info">
+            <div class="product-title" [title]="item.title">
+                {{item.title}}
+            </div>
+            <div class="product-price" aria-label="Price">
+                {{item.price | currency:'USD'}}
+            </div>
+            @if (item.discountPercentage) {
+            <div class="discount-save" aria-label="Discount percentage">
+                Discount {{item.discountPercentage | number:'1.0-0'}}%
+            </div>
+            }
+            <div class="product-meta">
+                <span class="product-origin" aria-label="Brand">
+                    {{item.brand}}
+                </span>
+            </div>
         </div>
+    </div>
+    }
+    @empty {
+    <div class="no-products" role="alert">
+        No products available
+    </div>
+    }
     }
 </div>
-
-
