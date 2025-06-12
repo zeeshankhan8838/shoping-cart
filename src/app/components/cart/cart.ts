@@ -17,7 +17,6 @@ import { COUPON_CODE } from '../../shared/constants/cart.constant';
 export class Cart implements OnInit {
   // Injected Services
   private readonly cartService = inject(CartService);
-  private readonly cdr = inject(ChangeDetectorRef);
 
   // Component State
   private readonly cartSubscription = new Subscription();
@@ -110,7 +109,6 @@ export class Cart implements OnInit {
    */
   private updateCartTotals(): void {
     this.cartService.getTotalAmountSummary(this.groupedCartItemsArray);
-    this.cdr.detectChanges();
   }
 
   /**

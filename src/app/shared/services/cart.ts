@@ -8,7 +8,7 @@ import { CalculatedAmountSummary } from '../model/cart.model';
   providedIn: 'root'
 })
 export class CartService {
-  cartList: IProduct[] = []
+  cartList = signal<IProduct[]>([])
   groupedCartItemsArray = signal([] as IGroupedCartItems[])
   calculatedAmount = new CalculatedAmountSummary()
   cartAction$: Subject<cartActionType> = new Subject()
@@ -16,28 +16,28 @@ export class CartService {
   constructor() { }
 
   addProductToCart(cart: IProduct) {
-    this.cartList.push(cart)
+    this.cartList.set([...this.cartList(), cart])
     this.groupItemsByIdArray()
     this.cartAction$.next('add')
   }
 
   deleteProductIntoCart() {
+    this.cartList.set([])
     this.groupedCartItemsArray.set([])
-    this.cartList = []
     this.cartAction$.next('delete')
   }
 
 
   groupItemsByIdArray() {
     const grouped: { [id: string]: ICartItem[] } = {};
-    for (const item of this.cartList) {
+    for (const item of this.cartList()) {
       if (!grouped[item.id]) {
         grouped[item.id] = [];
       }
       grouped[item.id].push(item as ICartItem);
     }
     // Convert object to array for *ngFor
-    let array= Object.keys(grouped).map(id => ({
+    let array = Object.keys(grouped).map(id => ({
       id,
       items: grouped[id],
       brand: grouped[id][0].brand || '',
@@ -48,26 +48,19 @@ export class CartService {
   }
 
   getCartFilterList(): IGroupedCartItems[] {
-    const groupedItems = this.groupedCartItemsArray()
-
-    return groupedItems.map(group => {
-      const combinedItem = group.items.reduce((acc, item) => {
-        const quantity = item.updatedQuantity || 1;
-        return {
-          ...item,
-          totalPrice: (acc.price || 0) + (item.price * quantity),
-          updatedQuantity: (acc.updatedQuantity || 0) + quantity,
-          isSelected: acc.isSelected || item.isSelected
-        };
-      }, {} as ICartItem);
-
-      return {
-        id: group.id,
-        brand: group.brand,
-        items: [combinedItem],
-        isSelected: group.isSelected
-      };
-    });
+    return this.groupedCartItemsArray().map(group => ({
+      id: group.id,
+      brand: group.brand,
+      isSelected: group.isSelected,
+      items: [{
+        ...group.items[0],
+        totalPrice: group.items.reduce((total, item) =>
+          total + (item.price * (item.updatedQuantity || 1)), 0),
+        updatedQuantity: group.items.reduce((total, item) =>
+          total + (item.updatedQuantity || 1), 0),
+        isSelected: group.items.some(item => item.isSelected)
+      }]
+    }));
   }
 
   calculatePrice(item: ICartItem) {
@@ -76,14 +69,14 @@ export class CartService {
 
   getTotalAmountSummary(array: IGroupedCartItems[]) {
     let subTotal = 0;
-    let shippingFee=0
+    let shippingFee = 0
     for (const group of array) {
-      if(group.isSelected){
-      for (const item of group.items) {
-        subTotal += Number(item.totalPrice) || 0;
-        shippingFee += Number(item.deliveryFee) || 0;
+      if (group.isSelected) {
+        for (const item of group.items) {
+          subTotal += Number(item.totalPrice) || 0;
+          shippingFee += Number(item.deliveryFee) || 0;
+        }
       }
-    }
     }
     this.calculatedAmount.subTotalAmount = subTotal;
     this.calculatedAmount.shippingAmount = shippingFee;
@@ -100,7 +93,7 @@ export class CartService {
     this.groupedCartItemsArray.set(array)
   }
 
- updateGroupCartList(array: IGroupedCartItems[]) {
-  this.groupedCartItemsArray.update(() => array);
-}
+  updateGroupCartList(array: IGroupedCartItems[]) {
+    this.groupedCartItemsArray.update(() => array);
+  }
 }
